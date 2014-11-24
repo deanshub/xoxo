@@ -93,13 +93,15 @@ body{
 }
 
 #level{
+	max-width: 95vw;
+	max-height: 95vw;
 	height: 95vh;
 	width: 95vh;
 	display: flex;
 	flex-direction: column;
 	font-size: 2em;
 	color: black;
-	margin: 0 25%;
+	margin: 0 auto;
 }
 .row{
 	flex:1;

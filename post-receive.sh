@@ -1,4 +1,5 @@
 #!/bin/sh
+forever stop xoxo
 GIT_WORK_TREE=/home/ec2-user/xoxo/
 export GIT_WORK_TREE
 git checkout -f
