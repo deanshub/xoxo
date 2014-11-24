@@ -1,0 +1,9 @@
+<div id="levels" ng-init="setDificulty()">
+	<div class="levelTitle">{{currentLevel.name}}</div>
+
+	<div class="levelContainer">
+		<div ng-repeat="level in currentLevel.levels track by $index" ng-class="{'done':level.done}" class="level {{currentLevel.color}}" ng-click="selectLevel(currentLevel, $index+1)">
+			<span>{{$index+1}}</span>
+		</div>
+	</div>
+</div>

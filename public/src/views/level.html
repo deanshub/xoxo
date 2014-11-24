@@ -1,0 +1,6 @@
+<div id="level" ng-init="setupLevel()">
+	<div ng-repeat="row in board" class="row">
+		<div ng-repeat="col in row" class="col" ng-class="{'ow':col.content==2,'ax':col.content==1,'error':col.error,'clickable':!col.predefined}" ng-click="color($parent.$index,$index)">
+		</div>
+	</div>
+</div>

@@ -1,0 +1,163 @@
+body{
+	font-family: 'Alef';
+	background-color:rgb(31, 30, 30);
+	overflow: hidden;
+	color: #ffffff;
+}
+
+#dificulty{
+	height: 97vh;
+	width: 97vw;
+	display: flex;
+	flex-direction: column;
+	font-size: 7em;
+	text-align: center;
+}
+#dificulty>div{
+	flex:1;
+	display: flex;
+	cursor: pointer;
+}
+#dificulty>div>span{
+	margin: auto;
+}
+.green{
+	background-color: #4CAF50;
+}
+.green:hover{
+	background-color: #66BB6A;
+}
+.done.green{
+	background-color: #B2FF59;
+	color: #000000;
+}
+.yellow{
+	background-color: #FFEB3B;
+}
+.yellow:hover{
+	background-color: #FFEE58;
+}
+.done.yellow{
+	background-color: #FFFF00;
+	color: #000000;
+}
+.red{
+	background-color: #F44336;
+}
+.red:hover{
+	background-color: #EF5350;
+}
+.done.red{
+	background-color: #D50000;
+	color: #000000;
+}
+.done>span{
+	position: relative;
+}
+.done>span:after {
+	content: "Done!";
+	position: absolute;
+	top: 0;
+	left: -250%;
+	color: #CFD8DC;
+	text-shadow: 1px 1px 5px black;
+	-webkit-transform: rotate(-25deg);
+}
+
+#levels{
+	height: 97vh;
+	width: 97vw;
+	font-size: 5em;
+
+}
+.levelTitle{
+	font-weight: bold;
+	text-align: center;
+}
+.levelContainer{
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	margin: 0 5%;
+}
+.level{
+	width: 31%;
+	height: 25vh;
+	display: flex;
+	cursor: pointer;
+	border: 3px black solid;
+	border-radius: 5px;
+}
+.level>span{
+	margin: auto;
+}
+
+#level{
+	height: 95vh;
+	width: 95vh;
+	display: flex;
+	flex-direction: column;
+	font-size: 2em;
+	color: black;
+	margin: 0 25%;
+}
+.row{
+	flex:1;
+	display: flex;
+}
+.col{
+	flex:1;
+	background-color: #ffffff;
+	text-align: center;
+	border:1px #000000 solid;
+	border-radius: 30%;
+	-webkit-transition: all 0.2s ease-in;
+}
+.clickable{
+	cursor: pointer;
+}
+
+.col:hover{
+	background-color: #E5E5E5;
+}
+
+.ax{
+	background-color: #03A9F4;
+}
+.ax:hover{
+	background-color: #0288D1;
+}
+.ow{
+	background-color: #FF9800;
+}
+.ow:hover{
+	background-color: #F57C00;
+}
+
+.error.ax{
+	background-color: #0D47A1;
+}
+.error.ow{
+	background-color: #FF5722;
+}
+
+#success{
+	height: 92vh;
+	width: 90vw;
+	margin: 0 5%;
+	direction: rtl;
+	font-size: 1.6em;
+	cursor: pointer;
+}
+
+#hidingDiv{
+	-webkit-transition:all 1s ease-in;
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: black;
+}

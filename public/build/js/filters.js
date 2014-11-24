@@ -1,0 +1,1 @@
+"use strict";var xoxo=angular.module("xoxo.filters",[]),filters={};filters.time=function(){return function(r){if(isNaN(r))return"";var t=Math.floor(r/60),e=r%60;return 10>e&&(e="0"+e),t+":"+e}},xoxo.filter(filters);
