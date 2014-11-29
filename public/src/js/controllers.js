@@ -118,8 +118,6 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 			var rowIndex = Math.floor(randomTile/$scope.currentLevel.x);
 			var colIndex = randomTile % $scope.currentLevel.x;
 
-			// console.log(randomTileIndex,$scope.leftTiles);
-			// console.log(randomTile, Math.floor(randomTile/$scope.currentLevel.x),randomTile % $scope.currentLevel.x);
 			while (($scope.leftTiles.length>0) && ($scope.board[rowIndex][colIndex].content!=0)){
 				randomTileIndex = Math.floor(Math.random() * $scope.leftTiles.length);
 				randomTile = $scope.leftTiles[randomTileIndex];
@@ -127,7 +125,6 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 
 				rowIndex = Math.floor(randomTile/$scope.currentLevel.x);
 				colIndex = randomTile % $scope.currentLevel.x;
-				// console.log(randomTile, Math.floor(randomTile/$scope.currentLevel.x),randomTile % $scope.currentLevel.x);
 			}
 			
 			if ($scope.board[rowIndex][colIndex].content==0){
@@ -151,21 +148,18 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 						color2Col++;
 					}
 
-					// console.log("1 row:",color1Row, ", 2 row:", color2Row,", 1 col:", color1Col, ", 2 col:", color2Col);
 					if ((color1Row == ($scope.currentLevel.x/2)) ||( color1Col == ($scope.currentLevel.x/2))){
 						color=2;
-						// console.log("chose");
+						// console.log("chose orange color");
 					}else if ((color2Row == ($scope.currentLevel.y/2)) || (color2Col == ($scope.currentLevel.y/2))){
 						color=1;
-						// console.log("chose");
+						// console.log("chose blue color");
 					}
 				}
 
 				$scope.board[rowIndex][colIndex] = {content:color, predefined:true};
 				// console.log("randomly",randomTile, rowIndex,colIndex, color);
-				// $scope.sleep(1000);
 				$scope.concludeBoard([colIndex],[rowIndex]);
-				// $scope.sleep(1000);
 			}
 		}
 
@@ -181,18 +175,10 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 					}
 				}
 			}
+		} else{
+			$scope.setupLevel();
 		}
 	};
-
-	//Delete this
-	$scope.sleep = function(milliseconds) {
-		var start = new Date().getTime();
-		for (var i = 0; i < 1e7; i++) {
-			if ((new Date().getTime() - start) > milliseconds){
-				break;
-			}
-		}
-	}
 
 	$scope.concludeBoard = function(rows, columns){
 		// console.log("whats left:",rows,columns);
@@ -238,8 +224,6 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 					color1++;
 				} else if ($scope.board[i][row].content==2){
 					color2++;
-				} else if ($scope.board[i][row].content==0){
-					blanks++;
 				}
 			}
 
@@ -261,6 +245,12 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 				}
 			}
 
+			for (var i = 0; i < $scope.board.length; i++) {
+				if ($scope.board[i][row].content==0){
+					blanks++;
+				}
+			}
+
 			// check if 3 blanks
 			if (blanks==3) {
 				// console.log("blanks!");
@@ -275,10 +265,10 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 					if (firstSet) {
 						if ((firstOk) && ((i+2)<$scope.board.length)){
 							// console.log("check",i,row);
+							// console.log("threecheck",$scope.board[i][row].content,$scope.board[i+1][row].content,$scope.board[i+2][row].content);
 							firstOk = !((($scope.board[i][row].content==lessColord)||($scope.board[i][row].content==0)) && 
 								(($scope.board[i+1][row].content==lessColord) || ($scope.board[i+1][row].content==0)) && 
 								(($scope.board[i+2][row].content==lessColord) || ($scope.board[i+2][row].content==0)) );
-							// console.log("threecheck",$scope.board[i][row].content,$scope.board[i+1][row].content,$scope.board[i+2][row].content);
 							// console.log("threecheck",firstOk);
 						}
 					} else if ($scope.board[i][row].content==0){
@@ -287,25 +277,28 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 				}
 
 				var thirdOk = true;
+				firstSet = false;
+
 				for (var i = 0; i < $scope.board.length-2; i++) {
-					if ((i+2)<$scope.board.length) {
+					if ( ((i+2)<$scope.board.length) && (!(($scope.board[i][row].content==0) && ($scope.board[i+1][row].content==0) && ($scope.board[i+2][row].content==0))) ) {
 						// console.log("check2",i,row);
-						if ((thirdOk) && ($scope.board[i][row].content==lessColord)){
+						if ((thirdOk) && (!firstSet) && ($scope.board[i][row].content==lessColord)){
 							thirdOk = !(($scope.board[i+1][row].content!=mostColord) && ($scope.board[i+2][row].content!=mostColord));
 							// console.log("threecheck",$scope.board[i][row].content,$scope.board[i+1][row].content,$scope.board[i+2][row].content);
 							// console.log("threecheck000000000000000000000000000000",thirdOk);
-						} else if ((thirdOk) && ($scope.board[i][row].content==0)){
+						} else if ((thirdOk) && (!firstSet) && ($scope.board[i][row].content==0)){
 							thirdOk = !( (($scope.board[i+1][row].content==lessColord) && ($scope.board[i+2][row].content==0)) || (($scope.board[i+1][row].content==0) && ($scope.board[i+2][row].content==lessColord)));
 							// console.log("threecheck",$scope.board[i][row].content,$scope.board[i+1][row].content,$scope.board[i+2][row].content);
 							// console.log("threecheck",thirdOk);
-							if (!(($scope.board[i][row].content==0) && ($scope.board[i+1][row].content==0) && ($scope.board[i+1][row].content==0))){
-								break;
-							}
+						}
+
+						if ($scope.board[i][row].content==0){
+							firstSet = true;
 						}
 					}
 				}
 
-
+				// console.log("blanks ",firstOk,thirdOk);
 				if (!thirdOk && !firstOk){
 					var firstSet = false;
 					for (var i = 0; i < $scope.board.length; i++) {
@@ -392,8 +385,6 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 					color1++;
 				} else if ($scope.board[col][i].content==2){
 					color2++;
-				} else if ($scope.board[col][i].content==0){
-					blanks++;
 				}
 			}
 
@@ -415,6 +406,12 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 				}
 			}
 
+			for (var i = 0; i < $scope.board.length; i++) {
+				if ($scope.board[col][i].content==0){
+					blanks++;
+				}
+			}
+
 			// check if 3 blanks
 			if (blanks==3) {
 				var mostColord=(color1>color2)?1:2;
@@ -427,10 +424,10 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 				for (var i = 0; i < $scope.board.length; i++) {
 					if ((firstOk) && (firstSet) && ((i+2)<$scope.board.length)){
 						// console.log("check",col,i, $scope.board[col][i]);
+						// console.log("threecheck",$scope.board[col][i].content,$scope.board[col][i+1].content,$scope.board[col][i+2].content);
 						firstOk = !((($scope.board[col][i].content==lessColord)||($scope.board[col][i].content==0)) && 
 							(($scope.board[col][i+1].content==lessColord) || ($scope.board[col][i+1].content==0)) && 
 							(($scope.board[col][i+2].content==lessColord) || ($scope.board[col][i+2].content==0)) );
-						// console.log("threecheck",$scope.board[col][i].content,$scope.board[col][i+1].content,$scope.board[col][i+2].content);
 						// console.log("threecheck",firstOk);
 					} else if ($scope.board[col][i].content==0){
 						firstSet=true;
@@ -438,24 +435,28 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 				}
 
 				var thirdOk = true;
+				firstSet = false;
+
 				for (var i = 0; i < $scope.board.length; i++) {
-					if ((i+2)<$scope.board.length) {
+					if (((i+2)<$scope.board.length) && (!(($scope.board[col][i].content==0) && ($scope.board[col][i+1].content==0) && ($scope.board[col][i+2].content==0)))) {
 						// console.log("check2",col,i);
-						if ((thirdOk) && ($scope.board[col][i].content==lessColord)){
+						if ((thirdOk) && (!firstSet) && ($scope.board[col][i].content==lessColord)){
 							thirdOk = !( ($scope.board[col][i+1].content!=mostColord) && ($scope.board[col][i+2].content!=mostColord) );
-							// console.log("threecheck1111111111111111",$scope.board[col][i].content,$scope.board[col][i+1].content,$scope.board[col][i+1].content);
+							// console.log("threecheck1111111111111111",$scope.board[col][i].content,$scope.board[col][i+1].content,$scope.board[col][i+2].content);
 							// console.log("threecheck",thirdOk);
-						} else if (thirdOk && $scope.board[col][i].content==0){
+						} else if (thirdOk && (!firstSet) && $scope.board[col][i].content==0){
 							thirdOk = !( (($scope.board[col][i+1].content==lessColord) && ($scope.board[col][i+2].content==0)) || (($scope.board[col][i+1].content==0) && ($scope.board[col][i+2].content==lessColord)));
-							// console.log("threecheck",$scope.board[col][i].content,$scope.board[col][i+1].content,$scope.board[col][i+1].content);
+							// console.log("threecheck",$scope.board[col][i].content,$scope.board[col][i+1].content,$scope.board[col][i+2].content);
 							// console.log("threecheck",thirdOk);
-							if (!(($scope.board[col][i].content==0) && ($scope.board[col][i+1].content==0) && ($scope.board[col][i+1].content==0))){
-								break;
-							}
+						}
+
+						if ($scope.board[col][i].content==0){
+							firstSet = true;
 						}
 					}
 				}
 
+				// console.log("blanks ",firstOk,thirdOk);
 				if (!thirdOk && !firstOk){
 					var firstSet = false;
 					for (var i = 0; i < $scope.board.length; i++) {
@@ -561,6 +562,7 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 					}
 					// set in local storage
 					$location.path("/success");
+					$scope.$apply();
 				}
 			} else{
 				var rcErr=$scope.verifyRowAndColumn($scope.board, x, y);
