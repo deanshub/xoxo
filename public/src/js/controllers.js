@@ -557,6 +557,7 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 							complete[$routeParams.dificulty] = [];
 						}
 						complete[$routeParams.dificulty].push($routeParams.level-1);
+						complete[$routeParams.dificulty] = $scope.arrayUnique(complete[$routeParams.dificulty]);
 
 						localStorage.setItem("complete", JSON.stringify(complete));
 					}

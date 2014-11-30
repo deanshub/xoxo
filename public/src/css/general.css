@@ -154,9 +154,7 @@ body{
 
 #hidingDiv{
 	-webkit-transition:all 1s ease-in;
-	width: 100vw;
-	height: 100vh;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	bottom: 0;
 	left: 0;
