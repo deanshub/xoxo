@@ -161,3 +161,15 @@ body{
 	right: 0;
 	background-color: black;
 }
+
+#fullscreen{
+	position: fixed;
+	bottom: 10px;
+	width: 96vw;
+	font-size: 1em;
+	font-weight: bold;
+	background-color: rgb(202, 202, 202);
+	border: 0;
+	right: 0;
+	left: 0;
+}

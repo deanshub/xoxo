@@ -3,4 +3,6 @@
 		<div ng-repeat="col in row" class="col" ng-class="{'ow':col.content==2,'ax':col.content==1,'error':col.error,'clickable':!col.predefined}" ng-click="color($parent.$index,$index)">
 		</div>
 	</div>
+
+	<button id="fullscreen" ng-click="fullScreen()">{{fullScreenDesc}}</button>
 </div>

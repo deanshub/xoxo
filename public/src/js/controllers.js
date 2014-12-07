@@ -36,6 +36,22 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 		$scope.levelCount += $scope.dificulties[i].levels.length;
 	}
 
+	$scope.fullScreenDesc = "Enter FullScreen";
+
+	$scope.fullScreen = function(){
+		var body = document.documentElement;
+		var requestFullScreen = body.requestFullscreen || body.mozRequestFullScreen || body.webkitRequestFullScreen || body.msRequestFullscreen;
+  		var cancelFullScreen = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
+		if($scope.fullScreenDesc == "Enter FullScreen"){
+			requestFullScreen.call(body);
+			$scope.fullScreenDesc = "Exit FullScreen";
+		}else{
+			$scope.fullScreenDesc = "Enter FullScreen";
+			cancelFullScreen.call(window.document);
+		}
+	};
+
+
 	$scope.selectDificulty = function(dificulty){
 		$location.path(dificulty);
 	};
@@ -68,6 +84,7 @@ controllers.introCtrl = ['$scope', '$location', '$routeParams', '$timeout', 'Gen
 	};
 
 	$scope.setupLevel = function(){
+		// $timeout(function(){window.scrollTo(0,0);},1000);
 		$scope.board =[];
 		$scope.leftTiles =[];
 
