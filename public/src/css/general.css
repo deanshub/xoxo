@@ -57,11 +57,12 @@ body{
 .done>span:after {
 	content: "Done!";
 	position: absolute;
-	top: 0;
-	left: -250%;
+	top: 25%;
+	left: -80%;
 	color: #CFD8DC;
 	text-shadow: 1px 1px 5px black;
 	-webkit-transform: rotate(-25deg);
+	font-size: 0.5em;
 }
 
 #levels{
